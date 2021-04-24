@@ -1,0 +1,38 @@
+@import url('./normalize.css');
+
+:root{
+  /* 定义变量 */
+  --color-text:#333;
+  --color-hight-text:#ff5777;
+  --color-tint:#ff8198;
+  --color-background:#fff;
+  --font-size:14px;
+  --line-height:1.5;
+}
+*,*::before,*::after{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  font-family: "Helvetica Neue",Helvetica,Arial,"Microsoft Yahei","Hiragino Sans GB","Heiti SC","WenQuanYi Micro Hei",
+  sans-serif;
+  user-select: none;/*禁止用户鼠标在页面上选择图片文字*/
+  -webkit-tap-highlight-color: transparent;
+  background: #fff;
+  color: #333;
+  width: 100vw;/* vw：1vw等于视口宽度的1%*/
+}
+a{
+  color: #333;
+  text-decoration: none;
+}
+
+.clearfix::before,.clearfix::after{
+  content: "";
+  display: table;
+}
+.clearfix::after{
+  clear: both;
+}
