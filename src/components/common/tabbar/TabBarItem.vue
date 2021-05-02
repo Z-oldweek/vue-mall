@@ -36,8 +36,9 @@ export default {
   },
   methods:{
     itemClick(){
+     
       //路由跳转，路径不固定
-      this.$router.replace(this.path)
+      this.$router.replace(this.path).catch(err => err)
     }
   }
 }
