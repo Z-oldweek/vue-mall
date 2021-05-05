@@ -2,7 +2,7 @@
   <!-- 监听点击 -->
   <div class="goods-item" @click="itemClick">
     <!-- @load监听图片加载完成 -->
-    <img :src="goodsItem.show.img" alt="" @load= "imgLoad">
+    <img :src="showImages" alt="" @load= "imgLoad">
     <div class="goods-info">
       <p>{{goodsItem.title}}</p>
       <span class="price">{{goodsItem.price}}</span>
@@ -34,6 +34,11 @@ export default {
       //跳转详情页,动态路由
       this.$router.push('/detail/' + this.goodsItem.iid)
       
+    }
+  },
+  computed:{
+    showImages(){
+      return this.goodsItem.image || this.goodsItem.show.img
     }
   }
 }

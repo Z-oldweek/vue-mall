@@ -40,6 +40,7 @@
     },
     watch:{
       detailInfo(){
+        //监听变化
         this.imagesLength = this.detailInfo.detailImage[0].list.length
       }
     }

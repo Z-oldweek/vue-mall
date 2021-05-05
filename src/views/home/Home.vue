@@ -76,8 +76,9 @@ export default {
       currentType: "pop",
       isShowBackTop: false,
       tabControlOffsetTop: 0,
-      isTabControlFixed:false,
-      saveY:0
+      isTabControlFixed: false,
+      saveY: 0,
+      homeImageListener: null,
     };
   },
   //生命周期函数，首页创建完就发送网络请求
@@ -89,25 +90,32 @@ export default {
     this.getHomeGoods("new");
     this.getHomeGoods("sell");
   },
-  activated(){
+  activated() {
     // console.log('1');
-    this.$refs.scroll.scrollTo(0,this.saveY,0)
-    this.$refs.scroll.refresh()
+    this.$refs.scroll.scrollTo(0, this.saveY, 0);
+    this.$refs.scroll.refresh();
+    // console.log('1');
+    this.$bus.$on("itemImgLoad", this.homeImageListener);
+
     
   },
-  deactivated(){
+  deactivated() {
     // console.log('2');
-    this.saveY = this.$refs.scroll.bs.y
-    
+    //保存y值
+    this.saveY = this.$refs.scroll.bs.y;
+    //取消监听事件
+    this.$bus.$off('itemImgLoad', this.homeImageListener)
   },
   mounted() {
     //1.图片加载完成的事件监听
     const refresh = this.debounce(this.$refs.scroll.refresh);
     //监听goodsitem图片加载完成并通过refs获取scroll组件中的refresh方法
-    this.$bus.$on("itemImgLoad", () => {
+    this.homeImageListener = () => {
       // console.log('111');
       this.$refs.scroll && refresh();
-    });
+    };
+
+    this.$bus.$on("itemImgLoad", this.homeImageListener);
   },
   computed: {
     showGoods() {
@@ -139,9 +147,9 @@ export default {
           this.currentType = "sell";
           break;
       }
-      this.$refs.tabControl1.currentIndex = index
-      this.$refs.tabControl2.currentIndex = index
-
+      //解决tabbar不一致问题
+      this.$refs.tabControl1.currentIndex = index;
+      this.$refs.tabControl2.currentIndex = index;
     },
     //返回顶部点击事件
     backClick() {
@@ -152,7 +160,7 @@ export default {
       //1.判断BackTop是否显示
       this.isShowBackTop = -position.y > 1000;
       //2. 决定tabControl是否吸顶
-      this.isTabControlFixed = (-position.y ) > this.tabControlOffsetTop
+      this.isTabControlFixed = -position.y > this.tabControlOffsetTop;
     },
     //上拉加载
     pullingUp() {

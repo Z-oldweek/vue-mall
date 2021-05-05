@@ -8,6 +8,11 @@ export function getDetail(iid){
     }
   })
 }
+export function getRecommend(){
+  return request({
+    url:'/recommend'
+  })
+}
 
 //把从服务器请求过来的复杂数据封装成一个对象
 //商品对象
@@ -21,7 +26,7 @@ export class Goods{
     this.discount = itemInfo.discountDesc
     this.columns = columns
     this.services = services
-    this.realPrice = itemInfo.lowNowprice
+    this.realPrice = itemInfo.lowNowPrice
 
   }
 }

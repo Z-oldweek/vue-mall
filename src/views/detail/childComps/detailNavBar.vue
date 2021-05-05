@@ -30,6 +30,8 @@ export default {
   methods:{
     itemClick(index){
       this.currentIndex = index
+      //发送点击事件
+      this.$emit('itemClick',index)
     },
     backClick(){
       this.$router.back()
